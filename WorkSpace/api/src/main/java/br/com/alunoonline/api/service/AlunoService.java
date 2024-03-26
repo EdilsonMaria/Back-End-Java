@@ -14,7 +14,7 @@ import java.util.Optional;
 public class AlunoService {
 
     @Autowired
-    AlunoRepository alunoRepository; //fazendo a injeção de dependencia do repositor em service
+    AlunoRepository alunoRepository; //fazendo a injeção de dependencia do repositor em service p/ poder se conectar ao BD
 
     public void create(Aluno aluno) {
         alunoRepository.save(aluno); //puxando as informações do model aluno e atribuindo ao banco de dados atravez do repository
@@ -28,9 +28,8 @@ public class AlunoService {
         return alunoRepository.findById(id);
     }
 
-    public void update(Long id, Aluno aluno) {
-        Optional<Aluno> alunoFronDb = findById(id); //puxando o aluno do BD para editar na memoria ram e depois devolver para o BD
-
+    public void update(Long id, Aluno aluno) { //puxando o aluno do BD para editar na memoria ram e depois devolver para o BD
+        Optional<Aluno> alunoFronDb = findById(id);
         if (alunoFronDb.isEmpty()) { //condição paraquando o parametro de aluno for nulo ou não existir no BD
             throw  new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado");
         }
@@ -38,9 +37,13 @@ public class AlunoService {
         Aluno alunoUpdated = alunoFronDb.get();
 
         alunoUpdated.setName(aluno.getName());
-        alunoUpdated.setName(aluno.getEmail());
+        alunoUpdated.setEmail(aluno.getEmail());
 
         alunoRepository.save(alunoUpdated);
+    }
+
+    public void deleteById(Long id) { //DeleteById siguinifica dizer que vamos deletar pelo usurio, dessa forma o parametro adotado sera sempre o numero do ID
+        alunoRepository.deleteById(id);
     }
 
 }

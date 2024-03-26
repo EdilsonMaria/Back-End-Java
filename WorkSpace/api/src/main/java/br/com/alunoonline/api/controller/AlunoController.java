@@ -16,7 +16,6 @@ public class AlunoController {
     @Autowired
     AlunoService alunoService; //fazendo a injeção de dependencia do service em controller
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody Aluno aluno) { //convertento o jason que vem do Postman ou insonmia para um arquivo java Aluno
@@ -39,6 +38,12 @@ public class AlunoController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Aluno aluno, @PathVariable Long id) {
         alunoService.update(id, aluno);  //devolvendo o aluno atualizado para o BD
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) { // o PathVaruable converte o Id de verbo Http para Id de Java
+        alunoService.deleteById(id); //deletando o aluno do BD
     }
 
 }

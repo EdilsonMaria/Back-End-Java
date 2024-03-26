@@ -14,11 +14,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 @Entity
-public class Aluno implements Serializable {
+public class Professor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
     private String name;
     private String email;
 }
